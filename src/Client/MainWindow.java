@@ -2,6 +2,8 @@ package Client;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.*;
+import java.net.Socket;
 
 public class MainWindow extends JFrame {
 
@@ -10,6 +12,8 @@ public class MainWindow extends JFrame {
     SignupWindow signup;
     WaitWindow wait;
     GameWindow game;
+    String message;
+
 
     MainWindow() {
         setLayout(new FlowLayout());
@@ -46,4 +50,32 @@ public class MainWindow extends JFrame {
             add(game);
         }
     }
+
+    public String client_socket(String str) throws IOException {
+        Socket s = null;
+        DataInputStream dis;
+        System.out.println("[클라이언트 연결됨]");
+        try {
+            s = new Socket("localhost",8000);
+            BufferedReader br = new BufferedReader(new InputStreamReader(s.getInputStream()));
+            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(s.getOutputStream()));
+
+            bw.write(str+"\n");
+            bw.flush();
+            dis = new DataInputStream(s.getInputStream());
+            message = dis.readUTF();
+            System.out.println("inputMessage : " + message);
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            try {
+                s.close(); //클라이언트 소켓 종료
+            } catch (Exception e) {
+                System.out.println("Server 채팅 중 오류 발생..............");
+            }
+        }
+        return message;
+    }
+
 }
