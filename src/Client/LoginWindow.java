@@ -39,17 +39,21 @@ public class LoginWindow extends JPanel{
         };
 
 
-        idArea = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        idArea = new JPanel(new FlowLayout(FlowLayout.LEFT));
         idArea.add(id = new JLabel("아이디"));
         idArea.add(idField = new JTextField(20));
-        id.setSize(80, 100);
+        id.setPreferredSize(new Dimension(44,16));
+        id.setHorizontalAlignment(0);
+        id.setVerticalTextPosition(0);
         idField.setSize(200, 100);
         this.add(idArea);
 
-        pwArea = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        pwArea = new JPanel(new FlowLayout(FlowLayout.LEFT));
         pwArea.add(pw = new JLabel("비밀번호"));
         pwArea.add(pwField = new JTextField(20));
-        pw.setSize(80, 100);
+        pw.setPreferredSize(new Dimension(44,16));
+        pw.setHorizontalAlignment(0);
+        pw.setVerticalTextPosition(0);
         pwField.setSize(200, 100);
         this.add(pwArea);
 
